@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { SmurfContext } from "../contexts/SmurfContext";
+import { SmurfContext } from "../contexts/SmurfContexts";
 import axios from "axios";
 
 

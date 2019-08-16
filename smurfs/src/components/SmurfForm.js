@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { SmurfContext } from "../contexts/SmurfContext";
-import SmurfCard from "./SmurfCard";
-
-
+import { SmurfContext } from "../contexts/SmurfContexts";
+import SmurfDisplay from "./SmurfDisplay";
 
 
 function SmurfFormDataGet({ errors, touched, status, setStatus }) {
@@ -52,13 +50,13 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
             </label>
             <button type="submit">Smurf Addition</button>
           </Form>
-          <SmurfCard />
+          <SmurfDisplay />
         </SmurfContext.Provider>
       </>
     )
   }
   
-  const Form = withFormik({
+  const SmurfForm = withFormik({
     mapPropsToValues: ({ name, age, height }) => {
       return {
         name: "",
@@ -91,4 +89,4 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
     }
   })(SmurfFormDataGet);
 
-  export default Form;
+  export default SmurfForm;
