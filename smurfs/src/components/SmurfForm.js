@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -15,14 +15,15 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
       .then(res => {
         console.log("Server data ->", res)
         setStatus(res.data);
+        setSmurfs(res.data);
       })
     }, [])
 
-    useEffect(() => {
-      if (status) {
-        setSmurfs([...smurfs, status]);
-      }
-    }, [status]);
+    // useEffect(() => {
+    //   if (status) {
+    //     setSmurfs([...smurfs, status]);
+    //   }
+    // }, [status]);
     return (
         <>
         <SmurfContext.Provider value={{ smurfs }}>
@@ -50,7 +51,7 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
             </label>
             <button type="submit">Smurf Addition</button>
           </Form>
-          <SmurfDisplay />
+          <SmurfDisplay smurfs={smurfs}/>
         </SmurfContext.Provider>
       </>
     )
@@ -79,8 +80,8 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
           height: values.height
         })
         .then(res => {
-          console.log("Server response ->", res);
-          window.location.href = window.location.href;
+          console.log("Server response ->", res.data);
+          const { smurfList } = useContext(SmurfContext);
         })
         .catch(function(error) {
           console.log(error);
