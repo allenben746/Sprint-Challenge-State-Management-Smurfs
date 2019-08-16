@@ -26,29 +26,35 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
       }
     }, [status]);
     return (
-    <>
+        <>
         <SmurfContext.Provider value={{ smurfs }}>
-        <Form>
-          <label>
-            Smurf Name
-              <p className="errors">{errors.name}</p>
-            <Field type="text" name="name" placeholder="Smurf Name..." />
-          </label>
-          <label>
-            Smurf Age
-              <p className="errors">{errors.age}</p>
-            <Field type="text" name="age" placeholder="Smurf Age..." />
-          </label>
-          <label>
-            Smurf Height
-              <p className="errors">{errors.height}</p>
-            <Field type="text" name="height" placeholder="Smurf Height..." />
-          </label>
-          <button type="submit">Smurf Addition</button>
-        </Form>
-        <SmurfCard />
-      </SmurfContext.Provider>
-    </>
+          <Form>
+            <label>
+              Smurf Name
+              {touched.name && errors.name && (
+                <p className="errors">{errors.name}</p>
+              )}
+              <Field type="text" name="name" placeholder="Smurf Name..." />
+            </label>
+            <label>
+              Smurf Age
+              {touched.age && errors.age && (
+                <p className="errors">{errors.age}</p>
+              )}
+              <Field type="text" name="age" placeholder="Smurf Age..." />
+            </label>
+            <label>
+              Smurf Height
+              {touched.height && errors.height && (
+                <p className="errors">{errors.height}</p>
+              )}
+              <Field type="text" name="height" placeholder="Smurf Height..." />
+            </label>
+            <button type="submit">Smurf Addition</button>
+          </Form>
+          <SmurfCard />
+        </SmurfContext.Provider>
+      </>
     )
   }
   
