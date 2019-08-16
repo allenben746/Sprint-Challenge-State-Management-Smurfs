@@ -52,4 +52,30 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
     )
   }
   
-  export default FormikForm;
+  const Form = withFormik({
+    mapPropsToValues: ({ name, age, height }) => {
+      return {
+        name: "",
+        age: "",
+        height: ""
+      };
+    },
+    handleSubmit(values, { resetForm, setStatus }) {
+      axios
+        .post("http://localhost:3333/smurfs", {
+          name: values.name,
+          age: values.age,
+          height: values.height
+        })
+        .then(response => {
+          console.log("response", response);
+          window.location.href = window.location.href;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      resetForm();
+    }
+  })(TheForm);
+
+  export default Form;
