@@ -44,7 +44,7 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
               <p className="errors">{errors.height}</p>
             <Field type="text" name="height" placeholder="Smurf Height..." />
           </label>
-          <button type="submit">Add Smurf</button>
+          <button type="submit">Smurf Addition</button>
         </Form>
         <SmurfCard />
       </SmurfContext.Provider>
@@ -60,6 +60,13 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
         height: ""
       };
     },
+    validationSchema: Yup.object().shape({
+      name: Yup.string()
+        .min(3, "Smurf name must be at least 3 characters")
+        .required("Name is required"),
+      age: Yup.string().required("Age is required"),
+      height: Yup.string().required("Height is required")
+    }),
     handleSubmit(values, { resetForm, setStatus }) {
       axios
         .post("http://localhost:3333/smurfs", {
@@ -67,8 +74,8 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
           age: values.age,
           height: values.height
         })
-        .then(response => {
-          console.log("response", response);
+        .then(res => {
+          console.log("Server response ->", res);
           window.location.href = window.location.href;
         })
         .catch(function(error) {
@@ -76,6 +83,6 @@ function SmurfFormDataGet({ errors, touched, status, setStatus }) {
         });
       resetForm();
     }
-  })(TheForm);
+  })(SmurfFormDataGet);
 
   export default Form;
